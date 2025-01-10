@@ -10,7 +10,7 @@ const MealDelivery = () => {
     // Fetch all meal deliveries
     const fetchMealDeliveries = async () => {
       try {
-        const response = await api.get('/mealdeliveries'); // Adjust the endpoint based on your backend API
+        const response = await api.get('/api/mealdeliveries'); // Updated endpoint
         setMealDeliveries(response.data);
       } catch (err) {
         console.error('Error fetching meal deliveries');
@@ -22,7 +22,7 @@ const MealDelivery = () => {
 
   const handleMarkAsDelivered = async (mealId) => {
     try {
-      await api.post(`/mealdeliveries/${mealId}/complete`, { deliveryNote });
+      await api.post(`/api/mealdeliveries/${mealId}/complete`, { deliveryNote }); // Updated endpoint
       setDeliveryNote('');  // Clear the delivery note field
       alert('Meal marked as delivered successfully!');
       setMealDeliveries(mealDeliveries.map(meal => 

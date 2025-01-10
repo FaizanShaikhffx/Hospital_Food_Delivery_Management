@@ -5,7 +5,7 @@ const Patient = require('../models/Patient')
 
 const router = express.Router();
 
-router.post('/', async (req, res)=>{
+router.post('/api/mealdeliveries', async (req, res)=>{
   const { pantryStaffId, patientId, status} = req.body;
 
   try{

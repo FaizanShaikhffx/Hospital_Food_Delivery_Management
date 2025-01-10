@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import FoodChart from './components/FoodChart';
+import Patient from './components/Patient';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
+        <Route path="/patients" element={<ProtectedRoute element={Patient} />} />
         <Route path="/food-charts" element={<ProtectedRoute element={FoodChart} />} />
       </Routes>
     </Router>

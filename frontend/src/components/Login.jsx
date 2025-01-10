@@ -8,7 +8,7 @@ const Auth = () => {
   const [role, setRole] = useState(''); // New state for role
   const [error, setError] = useState(null);
   const [isRegistering, setIsRegistering] = useState(false); // Toggle between login and register
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +16,7 @@ const Auth = () => {
       const response = await api.post('/auth/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
-      history.push('/dashboard');
+      navigate('/dashboard');
     } catch (err) {
       setError('Invalid username or password');
     }
@@ -25,16 +25,13 @@ const Auth = () => {
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/auth/register', { username, password, role });
-      const { token } = response.data;
-      localStorage.setItem('token', token);
-      history.push('/dashboard');
+      await api.post('/auth/register', { username, password, role });
+      // Redirect to login page after successful registration
+      navigate('/login');
     } catch (err) {
-      
       setError('Registration failed');
     }
   };
-  
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

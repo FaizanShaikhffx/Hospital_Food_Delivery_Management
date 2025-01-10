@@ -4,8 +4,8 @@ const Patient = require("../models/Patient");
 
 const router = express.Router();
 
-
-router.get("/", async (req, res) => {
+// Fetch all food charts
+router.get("/get", async (req, res) => {
   try {
     const foodCharts = await FoodChart.find();
     res.json(foodCharts);
@@ -14,8 +14,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-
-router.post("/", async (req, res) => {
+// Create a new food chart
+router.post("/create", async (req, res) => {
   const { mealType, ingredients, instructions, patientId } = req.body;
   try {
     const patient = await Patient.findById(patientId);
@@ -37,37 +37,37 @@ router.post("/", async (req, res) => {
   }
 });
 
-
-router.put('/:id', async(req, res)=>{
-  try{
+// Update a food chart
+router.put("/api/foodcharts/:id", async (req, res) => {
+  try {
     const foodChart = await FoodChart.findById(req.params.id);
-    if(!foodChart){
-      return res.status(404).json({message: "Food Chart not Found"})
+    if (!foodChart) {
+      return res.status(404).json({ message: "Food Chart not Found" });
     }
     foodChart.mealType = req.body.mealType || foodChart.mealType;
-    foodChart.ingredients = req.body.ingredients || foodChart.ingredients; 
-    foodChart.instructions = req.body.instructions || foodChart.instructions; 
+    foodChart.ingredients = req.body.ingredients || foodChart.ingredients;
+    foodChart.instructions = req.body.instructions || foodChart.instructions;
 
-    await foodChart.save(); 
+    await foodChart.save();
     res.json(foodChart);
-  }catch(err){
-    res.status(400).json({message: err.message})
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
-})
+});
 
-
-router.delete('/:id', async(req, res)=>{
-  try{
+// Delete a food chart
+router.delete("/api/foodcharts/:id", async (req, res) => {
+  try {
     const foodChart = await FoodChart.findById(req.params.id);
-    if(!foodChart){
-      return res.status(404).json({message: "Food Chart not Found"})
+    if (!foodChart) {
+      return res.status(404).json({ message: "Food Chart not Found" });
     }
 
-    await foodChart.remove(); 
-    res.json({message: "Food Chart Deleted"});
-  }catch(err){
-    res.status(400).json({message: err.message})
+    await foodChart.remove();
+    res.json({ message: "Food Chart Deleted" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
-})
+});
 
 module.exports = router;

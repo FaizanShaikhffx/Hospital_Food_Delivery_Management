@@ -4,24 +4,39 @@ import api from '../services/api';
 
 const Dashboard = () => {
   const [userRole, setUserRole] = useState('');
-  const history = useNavigate();
+  const [hasPatients, setHasPatients] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch user role from the backend or decode from JWT
-    const fetchUserRole = async () => {
+    const fetchUserRoleAndPatients = async () => {
       try {
-        const response = await api.get('/auth/me'); // Assuming you have a route to get user info
-        setUserRole(response.data.role);
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('No token found');
+        }
+
+        const userResponse = await api.get('http://localhost:5000/api/auth/user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setUserRole(userResponse.data.role);
+
+        const patientsResponse = await api.get('http://localhost:5000/api/patients/get');
+        setHasPatients(patientsResponse.data.length > 0);
       } catch (error) {
-        console.error('Error fetching user role');
+        console.error('Error fetching data:', error.message);
+        navigate('/login');
       }
     };
-    fetchUserRole();
-  }, []);
+
+    fetchUserRoleAndPatients();
+  }, [navigate]);
 
   const logout = () => {
     localStorage.removeItem('token');
-    history.push('/login');
+    navigate('/login');
   };
 
   return (
@@ -38,29 +53,39 @@ const Dashboard = () => {
         {userRole === 'admin' && (
           <>
             <button
-              onClick={() => history.push('/food-charts')}
+              onClick={() => navigate('/patients')}
               className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
-              Manage Food Charts
+              Manage Patients
             </button>
-            <button
-              onClick={() => history.push('/meal-deliveries')}
-              className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-            >
-              Track Meal Deliveries
-            </button>
+            {hasPatients && (
+              <>
+                <button
+                  onClick={() => navigate('/food-charts')}
+                  className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                >
+                  Manage Food Charts
+                </button>
+                <button
+                  onClick={() => navigate('/meal-deliveries')}
+                  className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                >
+                  Track Meal Deliveries
+                </button>
+              </>
+            )}
           </>
         )}
-        {userRole === 'staff' && (
+        {userRole === 'staff' && hasPatients && (
           <>
             <button
-              onClick={() => history.push('/food-charts')}
+              onClick={() => navigate('/food-charts')}
               className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
               View Food Charts
             </button>
             <button
-              onClick={() => history.push('/meal-deliveries')}
+              onClick={() => navigate('/meal-deliveries')}
               className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
               View Meal Deliveries
