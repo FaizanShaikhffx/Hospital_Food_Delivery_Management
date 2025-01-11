@@ -5,16 +5,20 @@ import Dashboard from './components/Dashboard';
 import FoodChart from './components/FoodChart';
 import Patient from './components/Patient';
 import ProtectedRoute from './components/ProtectedRoute';
+import MealDelivery from './components/MealDelivery';
+import HealthcarePage from './components/HealthcarePage';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} /> 
         <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/healthcare" element={<ProtectedRoute element={HealthcarePage} />} />
         <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
         <Route path="/patients" element={<ProtectedRoute element={Patient} />} />
         <Route path="/food-charts" element={<ProtectedRoute element={FoodChart} />} />
+        <Route path="/meal-deliveries" element={<ProtectedRoute element={MealDelivery} />} />
       </Routes>
     </Router>
   );

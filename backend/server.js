@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const authRoutes = require('./routes/routes.auth')
 const patientRoutes = require('./routes/routes.patient');
 const foodChartRoutes = require('./routes/routes.foodChart');
+const pantryStaffRoutes = require('./routes/routes.pantryStaff');
 const mealDeliveryRoutes = require('./routes/routes.mealDelivery');
 
 dotenv.config(); 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/patients', patientRoutes);
 app.use('/api/foodcharts', foodChartRoutes);
+app.use('/api/pantrystaff', pantryStaffRoutes);
 app.use('/api/mealdeliveries', mealDeliveryRoutes);
 
 

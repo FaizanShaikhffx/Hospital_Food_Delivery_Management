@@ -32,7 +32,7 @@ const Patient = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('/api/patients/create', {
+      await api.post('http://localhost:5000/api/patients/create', {
         name,
         disease,
         allergies,

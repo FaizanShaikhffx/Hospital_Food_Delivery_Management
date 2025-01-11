@@ -16,11 +16,12 @@ const Auth = () => {
       const response = await api.post('/auth/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
-      navigate('/dashboard');
+      navigate('/healthcare'); // Redirect to HealthcarePage after login
     } catch (err) {
       setError('Invalid username or password');
     }
   };
+  
 
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();

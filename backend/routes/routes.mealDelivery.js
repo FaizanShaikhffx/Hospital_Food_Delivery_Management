@@ -5,7 +5,7 @@ const Patient = require('../models/Patient')
 
 const router = express.Router();
 
-router.post('/api/mealdeliveries', async (req, res)=>{
+router.post('/create', async (req, res)=>{
   const { pantryStaffId, patientId, status} = req.body;
 
   try{
@@ -34,14 +34,15 @@ router.post('/api/mealdeliveries', async (req, res)=>{
 })
 
 
-router.get('/', async(req, res)=>{
-  try{
-    const deliveries = await MealDelivery.find()
+router.get('/', async (req, res) => {
+  try {
+    const deliveries = await MealDelivery.find().populate('patientId'); // Populate the patientId field
     res.json(deliveries);
-  }catch(err){
-    res.status(400).json({message: err.message})
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
-})
+});
+
 
 
 
