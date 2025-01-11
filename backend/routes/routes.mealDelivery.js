@@ -36,7 +36,7 @@ router.post('/create', async (req, res)=>{
 
 router.get('/', async (req, res) => {
   try {
-    const deliveries = await MealDelivery.find().populate('patientId'); // Populate the patientId field
+    const deliveries = await MealDelivery.find().populate('patientId'); 
     res.json(deliveries);
   } catch (err) {
     res.status(400).json({ message: err.message });

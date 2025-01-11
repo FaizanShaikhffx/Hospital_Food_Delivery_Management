@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../services/api'; // Ensure you have your API service imported
+import api from '../services/api'; 
 
 const Patient = () => {
   const [activeTab, setActiveTab] = useState('create');
@@ -15,7 +15,7 @@ const Patient = () => {
     contactInfo: '',
     emergencyContact: '',
   });
-  const [patients, setPatients] = useState([]); // State to store fetched patients
+  const [patients, setPatients] = useState([]); 
 
   useEffect(() => {
     const fetchPatients = async () => {

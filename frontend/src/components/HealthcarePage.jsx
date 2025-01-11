@@ -24,8 +24,8 @@ const HealthcarePage = () => {
         </div>
       </main>
       <FeaturePage />
-      <footer className="p-6 bg-gray-100 text-center">
-        <p className="text-gray-600">© 2025 Hospital Food Delivery Management. All rights reserved.</p>
+      <footer className="p-6 bg-[#40b1cc] text-center">
+        <p className="text-white font-bold">© 2025 Hospital Food Delivery Management. All rights reserved.</p>
       </footer>
     </div>
   );

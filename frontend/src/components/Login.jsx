@@ -5,9 +5,9 @@ import api from '../services/api';
 const Auth = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState(''); // New state for role
+  const [role, setRole] = useState(''); 
   const [error, setError] = useState(null);
-  const [isRegistering, setIsRegistering] = useState(false); // Toggle between login and register
+  const [isRegistering, setIsRegistering] = useState(false); 
   const navigate = useNavigate();
 
   const handleLoginSubmit = async (e) => {
@@ -16,7 +16,7 @@ const Auth = () => {
       const response = await api.post('/auth/login', { username, password });
       const { token } = response.data;
       localStorage.setItem('token', token);
-      navigate('/healthcare'); // Redirect to HealthcarePage after login
+      navigate('/healthcare'); 
     } catch (err) {
       setError('Invalid username or password');
     }
@@ -27,7 +27,6 @@ const Auth = () => {
     e.preventDefault();
     try {
       await api.post('/auth/register', { username, password, role });
-      // Redirect to login page after successful registration
       navigate('/login');
     } catch (err) {
       setError('Registration failed');

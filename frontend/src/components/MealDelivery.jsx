@@ -12,7 +12,6 @@ const MealDelivery = () => {
   const [patientsList, setPatientsList] = useState([]);
 
   useEffect(() => {
-    // Fetch all meal deliveries
     const fetchMealDeliveries = async () => {
       try {
         const response = await api.get("http://localhost:5000/api/mealdeliveries/");
@@ -22,7 +21,6 @@ const MealDelivery = () => {
       }
     };
 
-    // Fetch pantry staff and patients to populate the dropdowns
     const fetchData = async () => {
       try {
         const staffResponse = await api.get('http://localhost:5000/api/pantrystaff/get');
@@ -52,7 +50,7 @@ const MealDelivery = () => {
               : meal
           )
         );
-        setDeliveryNote(""); // Clear the delivery note field
+        setDeliveryNote(""); 
         alert("Meal marked as delivered successfully!");
       }
     } catch (err) {
@@ -81,7 +79,6 @@ const MealDelivery = () => {
     <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
       <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">Meal Delivery Tracking</h1>
 
-      {/* Form to create a new meal delivery */}
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="mb-4">
           <label className="block text-sm font-semibold text-gray-700">Pantry Staff</label>
@@ -133,7 +130,6 @@ const MealDelivery = () => {
         </button>
       </form>
 
-      {/* Existing meal deliveries */}
       <div>
         {mealDeliveries.length > 0 ? (
           mealDeliveries

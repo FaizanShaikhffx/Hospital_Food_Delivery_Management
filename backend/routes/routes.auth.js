@@ -6,7 +6,6 @@ require('dotenv').config();
 
 const router = express.Router();
 
-// User registration route
 
 router.post("/register", async (req, res) => {
   const { username, password, role } = req.body;
@@ -15,7 +14,6 @@ router.post("/register", async (req, res) => {
     const user = new User({ username, password, role });
     await user.save();
 
-    // Generate token upon successful registration
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
@@ -28,7 +26,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// User login route
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -55,7 +52,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// Authentication middleware
 const authenticate = (req, res, next) => {
   const token = req.header("Authorization")?.replace("Bearer ", "");
 

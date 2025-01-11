@@ -3,7 +3,6 @@ const Patient = require('../models/Patient');
 
 const router = express.Router();
 
-// Create a new patient
 router.post('/create', async (req, res) => {
   const newPatient = new Patient(req.body);
   try {
@@ -14,7 +13,6 @@ router.post('/create', async (req, res) => {
   }
 });
 
-// Fetch all patients
 router.get('/get', async (req, res) => {
   try {
     const patients = await Patient.find();
@@ -24,7 +22,6 @@ router.get('/get', async (req, res) => {
   }
 });
 
-// Fetch a single patient by ID
 router.get('/:id', async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id);
@@ -37,7 +34,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Update a patient by ID
 router.put('/:id', async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id);
@@ -45,7 +41,7 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Patient not found' });
     }
 
-    Object.assign(patient, req.body); // Update patient with new data
+    Object.assign(patient, req.body); 
     await patient.save();
     res.json(patient);
   } catch (err) {
@@ -53,7 +49,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a patient by ID
 router.delete('/:id', async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id);

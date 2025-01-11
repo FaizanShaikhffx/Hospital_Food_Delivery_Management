@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api/'; // Replace with your backend URL
+const API_URL = 'http://localhost:5000/api/'; 
 
-// Create an Axios instance
+
 const api = axios.create({
   baseURL: API_URL,
   headers: {
@@ -10,7 +10,7 @@ const api = axios.create({
   },
 });
 
-// Set the Authorization token for each request if available
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');

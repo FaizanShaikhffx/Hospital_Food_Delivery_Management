@@ -7,6 +7,8 @@ import Patient from './components/Patient';
 import ProtectedRoute from './components/ProtectedRoute';
 import MealDelivery from './components/MealDelivery';
 import HealthcarePage from './components/HealthcarePage';
+import Contact from './components/Contact';
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route path="/patients" element={<ProtectedRoute element={Patient} />} />
         <Route path="/food-charts" element={<ProtectedRoute element={FoodChart} />} />
         <Route path="/meal-deliveries" element={<ProtectedRoute element={MealDelivery} />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
   );

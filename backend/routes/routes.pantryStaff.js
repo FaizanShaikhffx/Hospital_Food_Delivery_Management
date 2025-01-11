@@ -3,7 +3,6 @@ const PantryStaff = require('../models/PantryStaff');
 
 const router = express.Router();
 
-// Create a new pantry staff member
 router.post('/create', async (req, res) => {
   const newStaff = new PantryStaff(req.body);
   try {
@@ -14,7 +13,6 @@ router.post('/create', async (req, res) => {
   }
 });
 
-// Fetch all pantry staff members
 router.get('/get', async (req, res) => {
   try {
     const staff = await PantryStaff.find();
@@ -24,7 +22,6 @@ router.get('/get', async (req, res) => {
   }
 });
 
-// Fetch a single pantry staff member by ID
 router.get('/:id', async (req, res) => {
   try {
     const staff = await PantryStaff.findById(req.params.id);
@@ -37,7 +34,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Update a pantry staff member by ID
 router.put('/:id', async (req, res) => {
   try {
     const staff = await PantryStaff.findById(req.params.id);
@@ -45,7 +41,7 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Pantry staff not found' });
     }
 
-    Object.assign(staff, req.body); // Update staff with new data
+    Object.assign(staff, req.body); 
     await staff.save();
     res.json(staff);
   } catch (err) {
@@ -53,7 +49,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a pantry staff member by ID
 router.delete('/:id', async (req, res) => {
   try {
     const staff = await PantryStaff.findById(req.params.id);

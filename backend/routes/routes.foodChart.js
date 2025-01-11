@@ -4,7 +4,6 @@ const Patient = require("../models/Patient");
 
 const router = express.Router();
 
-// Fetch all food charts
 router.get("/get", async (req, res) => {
   try {
     const foodCharts = await FoodChart.find();
@@ -14,7 +13,6 @@ router.get("/get", async (req, res) => {
   }
 });
 
-// Create a new food chart
 router.post("/create", async (req, res) => {
   const { mealType, ingredients, instructions, patientId } = req.body;
   try {
@@ -37,7 +35,6 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// Update a food chart
 router.put("/api/foodcharts/:id", async (req, res) => {
   try {
     const foodChart = await FoodChart.findById(req.params.id);
@@ -55,7 +52,6 @@ router.put("/api/foodcharts/:id", async (req, res) => {
   }
 });
 
-// Delete a food chart
 router.delete("/api/foodcharts/:id", async (req, res) => {
   try {
     const foodChart = await FoodChart.findById(req.params.id);
