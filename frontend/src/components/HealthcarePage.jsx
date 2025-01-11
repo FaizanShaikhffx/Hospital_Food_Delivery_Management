@@ -8,7 +8,7 @@ const HealthcarePage = () => {
       <header className="flex justify-between items-center p-6">
         <div className="text-3xl font-bold text-blue-900">HOSPIVERSE</div>
         <nav className="space-x-4">
-          <Link to="/" className="text-gray-600 font-bold hover:text-blue-900">Home</Link>
+          <Link to="/healthcare" className="text-gray-600 font-bold hover:text-blue-900">Home</Link>
           <Link to="/patients" className="text-gray-600 font-bold hover:text-blue-900">Patients</Link>
           <Link to="/food-charts" className="text-gray-600 font-bold hover:text-blue-900">Food Charts</Link>
           <Link to="/meal-deliveries" className="text-gray-600 font-bold hover:text-blue-900">Meal Deliveries</Link>
