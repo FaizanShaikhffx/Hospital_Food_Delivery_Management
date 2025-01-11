@@ -13,7 +13,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<ProtectedRoute element={HealthcarePage} />} />
         <Route path="/healthcare" element={<ProtectedRoute element={HealthcarePage} />} />
         <Route path="/dashboard" element={<ProtectedRoute element={Dashboard} />} />
         <Route path="/patients" element={<ProtectedRoute element={Patient} />} />

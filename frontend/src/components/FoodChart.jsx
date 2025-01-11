@@ -63,16 +63,16 @@ const FoodChart = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Food Chart Management</h1>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <h1 className="text-4xl font-bold mb-8 text-center text-[#40b1cc]">Food Chart Management</h1>
       {patients.length > 0 ? (
-        <form onSubmit={handleSubmit} className="mb-6">
+        <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Patient</label>
             <select
               value={selectedPatientId}
               onChange={(e) => setSelectedPatientId(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               required
             >
               <option value="">Select a patient</option>
@@ -89,7 +89,7 @@ const FoodChart = () => {
               type="text"
               value={mealType}
               onChange={(e) => setMealType(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               required
             />
           </div>
@@ -99,7 +99,7 @@ const FoodChart = () => {
               type="text"
               value={ingredients}
               onChange={(e) => setIngredients(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               required
             />
           </div>
@@ -109,29 +109,29 @@ const FoodChart = () => {
               type="text"
               value={instructions}
               onChange={(e) => setInstructions(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md"
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
               required
             />
           </div>
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            className="w-full py-2  bg-[#40b1cc] text-white rounded-md hover:bg-[#41c8e9] focus:outline-none focus:ring-2 "
           >
             Create Food Chart
           </button>
         </form>
       ) : (
-        <p>No patients available. Please add a patient first.</p>
+        <p className="text-center text-gray-500">No patients available. Please add a patient first.</p>
       )}
 
       {foodCharts.length > 0 && (
-        <div>
-          <h2 className="text-xl mb-4">Existing Food Charts</h2>
+        <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mt-8">
+          <h2 className="text-2xl mb-4 text-[#40b1cc]">Existing Food Charts</h2>
           {foodCharts.map((chart) => (
-            <div key={chart._id} className="mb-4">
-              <p><strong>Meal Type:</strong> {chart.mealType}</p>
-              <p><strong>Ingredients:</strong> {chart.ingredients}</p>
-              <p><strong>Instructions:</strong> {chart.instructions}</p>
+            <div key={chart._id} className="mb-4 border-b pb-4">
+              <p className="text-sm"><strong>Meal Type:</strong> {chart.mealType}</p>
+              <p className="text-sm"><strong>Ingredients:</strong> {chart.ingredients}</p>
+              <p className="text-sm"><strong>Instructions:</strong> {chart.instructions}</p>
             </div>
           ))}
         </div>

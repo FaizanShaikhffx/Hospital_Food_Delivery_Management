@@ -43,6 +43,20 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/:id/complete', async (req, res) => {
+  try {
+    const mealDelivery = await MealDelivery.findById(req.params.id);
+    if (!mealDelivery) {
+      return res.status(404).json({ message: "Meal Delivery not found" });
+    }
+    mealDelivery.status = "Delivered";
+    mealDelivery.deliveryNote = req.body.deliveryNote || '';
+    await mealDelivery.save();
+    res.status(200).json({ message: "Meal marked as delivered" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
 
 
 
