@@ -12,11 +12,11 @@ const HealthcarePage = () => {
 
   return (
     <div className="bg-white text-gray-800 min-h-screen bg-cover bg-center bg-fixed">
-      <header className="flex justify-between items-center px-8 py-6 bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
-        <div className="text-3xl font-bold bg-gradient-to-r from-blue-900 to-[#40b1cc] bg-clip-text text-transparent">
+      <header className="flex flex-wrap justify-between items-center px-4 sm:px-8 py-6 bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-900 to-[#40b1cc] bg-clip-text text-transparent">
           HOSPIVERSE
         </div>
-        <nav className="space-x-8">
+        <nav className="flex flex-wrap space-x-4 sm:space-x-8">
           <Link
             to="/healthcare"
             className="text-gray-600 font-medium hover:text-[#40b1cc] transition-colors duration-200"
@@ -49,10 +49,10 @@ const HealthcarePage = () => {
           </Link>
         </nav>
       </header>
-      <main className="relative flex  min-h-screen w-full mt-0">
-        <div className=" bg-gradient-to-b from-blue-100 to-white  w-full h-full">
+      <main className="relative flex min-h-screen w-full mt-0">
+        <div className="bg-gradient-to-b from-blue-100 to-white w-full h-full">
           <div className="flex h-full w-full">
-            <div className="flex-none w-7/12 h-full">
+            <div className="flex-none w-full xl:w-7/12 h-full hidden xl:block">
               <img
                 className="h-full w-full object-cover"
                 src="/hero_section.jpg"
@@ -62,11 +62,11 @@ const HealthcarePage = () => {
               />
             </div>
 
-            <div className="flex-grow flex text- flex-col justify-center px-4 sm:px-6 lg:px-8">
-              <div className="relative  z-10 pb-8 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32">
+            <div className="flex-grow flex flex-col justify-center px-4 sm:px-6 lg:px-8">
+              <div className="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:pb-28 xl:pb-32">
                 <main className="sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
                   <div className="sm:text-center justify-center lg:text-left">
-                    <h1 className="text-4xl pt-8 text-ce tracking-tight font-extrabold text-gray-900 sm:text-3xl md:text-5xl">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl pt-8 tracking-tight font-extrabold text-gray-900">
                       <span className="block xl:inline">
                         Streamline Hospital
                       </span>{" "}
@@ -88,8 +88,7 @@ const HealthcarePage = () => {
                           Get started
                         </button>
                       </div>
-                      <div className="mt-3 sm:mt-0 sm:ml-3">
-                      </div>
+                      <div className="mt-3 sm:mt-0 sm:ml-3"></div>
                     </div>
                   </div>
                 </main>
