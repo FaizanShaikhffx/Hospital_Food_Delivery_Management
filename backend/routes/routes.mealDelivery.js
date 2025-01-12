@@ -59,5 +59,20 @@ router.post('/:id/complete', async (req, res) => {
 });
 
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const mealDelivery = await MealDelivery.findById(req.params.id);
+    if (!mealDelivery) {
+      return res.status(404).json({ message: "Meal Delivery not found" });
+    }
+
+    await mealDelivery.deleteOne();
+    res.status(200).json({ message: "Meal Delivery deleted" });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+
 
 module.exports = router;

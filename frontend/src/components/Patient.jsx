@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../services/api'; 
+import api from '../services/api';
 
 const Patient = () => {
   const [activeTab, setActiveTab] = useState('create');
@@ -15,20 +15,21 @@ const Patient = () => {
     contactInfo: '',
     emergencyContact: '',
   });
-  const [patients, setPatients] = useState([]); 
+  const [patients, setPatients] = useState([]);
+  const [selectedPatient, setSelectedPatient] = useState(null);
 
   useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await api.get('http://localhost:5000/api/patients/get');
-        setPatients(response.data);
-      } catch (err) {
-        console.error('Error fetching patients:', err);
-      }
-    };
-
     fetchPatients();
   }, []);
+
+  const fetchPatients = async () => {
+    try {
+      const response = await api.get('http://localhost:5000/api/patients/get');
+      setPatients(response.data);
+    } catch (err) {
+      console.error('Error fetching patients:', err);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -38,8 +39,13 @@ const Patient = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('http://localhost:5000/api/patients/create', formData);
-      alert('Patient created successfully!');
+      if (selectedPatient) {
+        await api.put(`http://localhost:5000/api/patients/${selectedPatient._id}`, formData);
+        alert('Patient updated successfully!');
+      } else {
+        await api.post('http://localhost:5000/api/patients/create', formData);
+        alert('Patient created successfully!');
+      }
       setFormData({
         name: '',
         disease: '',
@@ -52,11 +58,29 @@ const Patient = () => {
         contactInfo: '',
         emergencyContact: '',
       });
+      setSelectedPatient(null);
+      fetchPatients();
     } catch (err) {
-      console.error('Error creating patient:', err);
+      console.error('Error saving patient:', err);
     }
   };
 
+  const handleEdit = (patient) => {
+    setSelectedPatient(patient);
+    setFormData(patient);
+    setActiveTab('create');
+  };
+
+  const handleDelete = async (patientId) => {
+    try {
+      await api.delete(`http://localhost:5000/api/patients/${patientId}`);
+      alert('Patient deleted successfully!');
+      fetchPatients(); 
+    } catch (err) {
+      console.error('Error deleting patient:', err);
+    }
+  };
+  
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
       <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Patient Management</h1>
@@ -70,7 +94,7 @@ const Patient = () => {
           }`}
           onClick={() => setActiveTab('create')}
         >
-          Create Patient
+          {selectedPatient ? 'Edit Patient' : 'Create Patient'}
         </button>
         <button
           className={`px-6 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${
@@ -95,7 +119,7 @@ const Patient = () => {
               />
             </div>
             <div className="w-full md:w-1/2 p-8">
-              <h2 className="text-3xl font-bold mb-6 text-gray-800">Create New Patient</h2>
+              <h2 className="text-3xl font-bold mb-6 text-gray-800">{selectedPatient ? 'Edit Patient' : 'Create New Patient'}</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {Object.entries(formData).map(([key, value]) => (
@@ -103,14 +127,28 @@ const Patient = () => {
                       <label htmlFor={key} className="block text-sm font-medium text-gray-700 mb-1 capitalize">
                         {key.replace(/([A-Z])/g, ' $1').trim()}
                       </label>
-                      <input
-                        id={key}
-                        name={key}
-                        value={value}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                        type={key === 'age' ? 'number' : 'text'}
-                      />
+                      {key === 'gender' ? (
+                        <select
+                          id={key}
+                          name={key}
+                          value={value}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                        >
+                          <option value="">Select Gender</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                      ) : (
+                        <input
+                          id={key}
+                          name={key}
+                          value={value}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+                          type={key === 'age' ? 'number' : 'text'}
+                        />
+                      )}
                     </div>
                   ))}
                 </div>
@@ -118,7 +156,7 @@ const Patient = () => {
                   type="submit"
                   className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 shadow-lg"
                 >
-                  Create Patient
+                  {selectedPatient ? 'Update Patient' : 'Create Patient'}
                 </button>
               </form>
             </div>
@@ -144,6 +182,20 @@ const Patient = () => {
                     <div><span className="font-semibold text-gray-700">Gender:</span> {patient.gender}</div>
                     <div><span className="font-semibold text-gray-700">Contact Info:</span> {patient.contactInfo}</div>
                     <div><span className="font-semibold text-gray-700">Emergency Contact:</span> {patient.emergencyContact}</div>
+                  </div>
+                  <div className="flex space-x-4 mt-4">
+                    <button
+                      onClick={() => handleEdit(patient)}
+                      className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(patient._id)}
+                      className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
                   </div>
                 </div>
               ))

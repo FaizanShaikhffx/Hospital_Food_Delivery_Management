@@ -8,6 +8,7 @@ const FoodChart = () => {
   const [foodCharts, setFoodCharts] = useState([]);
   const [patients, setPatients] = useState([]);
   const [selectedPatientId, setSelectedPatientId] = useState('');
+  const [selectedFoodChart, setSelectedFoodChart] = useState(null);
 
   useEffect(() => {
     const fetchPatients = async () => {
@@ -35,9 +36,10 @@ const FoodChart = () => {
         console.error('Error fetching food charts');
       }
     };
-
+  
     fetchFoodCharts(selectedPatientId);
   }, [selectedPatientId]);
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,96 +48,146 @@ const FoodChart = () => {
       return;
     }
     try {
-      await api.post('http://localhost:5000/api/foodcharts/create', {
-        mealType,
-        ingredients,
-        instructions,
-        patientId: selectedPatientId,
-      });
+      if (selectedFoodChart) {
+        await api.put(`http://localhost:5000/api/foodcharts/${selectedFoodChart._id}`, {
+          mealType,
+          ingredients,
+          instructions,
+        });
+        alert('Food chart updated successfully!');
+      } else {
+        await api.post('http://localhost:5000/api/foodcharts/create', {
+          mealType,
+          ingredients,
+          instructions,
+          patientId: selectedPatientId,
+        });
+        alert('Food chart created successfully!');
+      }
       setMealType('');
       setIngredients('');
       setInstructions('');
       setSelectedPatientId('');
-      alert('Food chart created successfully!');
+      setSelectedFoodChart(null);
     } catch (err) {
-      console.error('Error creating food chart');
+      console.error('Error creating/updating food chart');
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-4xl font-bold mb-8 text-center text-[#40b1cc]">Food Chart Management</h1>
-      {patients.length > 0 ? (
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Patient</label>
-            <select
-              value={selectedPatientId}
-              onChange={(e) => setSelectedPatientId(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            >
-              <option value="">Select a patient</option>
-              {patients.map((patient) => (
-                <option key={patient._id} value={patient._id}>
-                  {patient.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Meal Type</label>
-            <input
-              type="text"
-              value={mealType}
-              onChange={(e) => setMealType(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Ingredients</label>
-            <input
-              type="text"
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Instructions</label>
-            <input
-              type="text"
-              value={instructions}
-              onChange={(e) => setInstructions(e.target.value)}
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full py-2  bg-[#40b1cc] text-white rounded-md hover:bg-[#41c8e9] focus:outline-none focus:ring-2 "
-          >
-            Create Food Chart
-          </button>
-        </form>
-      ) : (
-        <p className="text-center text-gray-500">No patients available. Please add a patient first.</p>
-      )}
+  const handleEdit = (foodChart) => {
+    setSelectedFoodChart(foodChart);
+    setMealType(foodChart.mealType);
+    setIngredients(foodChart.ingredients);
+    setInstructions(foodChart.instructions);
+  };
 
-      {foodCharts.length > 0 && (
-        <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mt-8">
-          <h2 className="text-2xl mb-4 text-[#40b1cc]">Existing Food Charts</h2>
-          {foodCharts.map((chart) => (
-            <div key={chart._id} className="mb-4 border-b pb-4">
-              <p className="text-sm"><strong>Meal Type:</strong> {chart.mealType}</p>
-              <p className="text-sm"><strong>Ingredients:</strong> {chart.ingredients}</p>
-              <p className="text-sm"><strong>Instructions:</strong> {chart.instructions}</p>
+  const handleDelete = async (foodChartId) => {
+    try {
+      await api.delete(`http://localhost:5000/api/foodcharts/${foodChartId}`);
+      alert('Food chart deleted successfully!');
+      setFoodCharts(foodCharts.filter(chart => chart._id !== foodChartId));
+    } catch (err) {
+      console.error('Error deleting food chart', err);
+    }
+  };
+  
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br  to-teal-50 p-6 flex flex-col">
+      <div className="flex items-center mb-6">
+        <img src="/FoodChart.jpg" alt="Placeholder" className=" w-5/12 rounded-2xl  transition-transform duration-300 hover:scale-105" />
+      </div>
+
+      <div className="p-6 flex items-center justify-center">
+        <div className="bg-white bg-opacity-80 backdrop-blur-md p-8 rounded-2xl w-full shadow-xl transition-all duration-300 hover:shadow-2xl">
+          <h1 className="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">Food Chart Management</h1>
+          {patients.length > 0 ? (
+            <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Patient</label>
+                  <select
+                    value={selectedPatientId}
+                    onChange={(e) => setSelectedPatientId(e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-200"
+                    required
+                  >
+                    <option value="">Select a patient</option>
+                    {patients.map((patient) => (
+                      <option key={patient._id} value={patient._id}>
+                        {patient.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Meal Type</label>
+                  <input
+                    type="text"
+                    value={mealType}
+                    onChange={(e) => setMealType(e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-200"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Ingredients</label>
+                  <input
+                    type="text"
+                    value={ingredients}
+                    onChange={(e) => setIngredients(e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-200"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Instructions</label>
+                  <input
+                    type="text"
+                    value={instructions}
+                    onChange={(e) => setInstructions(e.target.value)}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-200"
+                    required
+                  />
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="w-full py-3 bg-gradient-to-r from-blue-500 to-teal-400 text-white rounded-lg hover:from-blue-600 hover:to-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
+              >
+                {selectedFoodChart ? 'Update Food Chart' : 'Create Food Chart'}
+              </button>
+            </form>
+          ) : (
+            <p className="text-center text-gray-500">No patients available. Please add a patient first.</p>
+          )}
+
+          {foodCharts.length > 0 && (
+            <div className="bg-white bg-opacity-80 backdrop-blur-md p-6 rounded-2xl shadow-lg mt-8 transition-all duration-300 hover:shadow-xl">
+              <h2 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">Existing Food Charts</h2>
+              {foodCharts.map((chart) => (
+                <div key={chart._id} className="mb-4 border-b border-gray-200 pb-4 last:border-b-0">
+                  <p className="text-sm"><span className="font-semibold text-gray-700">Meal Type:</span> {chart.mealType}</p>
+                  <p className="text-sm"><span className="font-semibold text-gray-700">Ingredients:</span> {chart.ingredients}</p>
+                  <p className="text-sm"><span className="font-semibold text-gray-700">Instructions:</span> {chart.instructions}</p>
+                  <button
+                    onClick={() => handleEdit(chart)}
+                    className="mr-2 px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(chart._id)}
+                    className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

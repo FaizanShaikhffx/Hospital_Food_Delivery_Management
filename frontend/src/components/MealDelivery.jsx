@@ -61,17 +61,33 @@ const MealDelivery = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('http://localhost:5000/api/mealdeliveries/create', {
+      const response = await api.post('http://localhost:5000/api/mealdeliveries/create', {
         pantryStaffId,
         patientId,
         status,
       });
       alert('Meal delivery created successfully!');
+      
+      
+      const updatedDeliveries = await api.get("http://localhost:5000/api/mealdeliveries/");
+      setMealDeliveries(updatedDeliveries.data);
+  
       setPantryStaffId('');
       setPatientId('');
       setStatus('');
     } catch (err) {
       console.error('Error creating meal delivery', err);
+    }
+  };
+  
+
+  const handleDelete = async (mealId) => {
+    try {
+      await api.delete(`http://localhost:5000/api/mealdeliveries/${mealId}`);
+      alert('Meal delivery deleted successfully!');
+      setMealDeliveries(mealDeliveries.filter((meal) => meal._id !== mealId));
+    } catch (err) {
+      console.error('Error deleting meal delivery', err);
     }
   };
 
@@ -143,24 +159,32 @@ const MealDelivery = () => {
                 <p className="text-sm text-gray-600"><strong>Status:</strong> {meal.status}</p>
 
                 {meal.status === "Pending" && (
-                  <>
-                    <div className="mb-4">
-                      <label className="block text-sm font-medium text-gray-700">Delivery Note</label>
-                      <textarea
-                        value={deliveryNote}
-                        onChange={(e) => setDeliveryNote(e.target.value)}
-                        className="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-                        placeholder="Add an optional note for the delivery"
-                      />
-                    </div>
-                    <button
-                      onClick={() => handleMarkAsDelivered(meal._id)}
-                      className="w-full py-2 bg-green-500 text-white text-center font-semibold rounded-md hover:bg-green-600"
-                    >
-                      Mark as Delivered
-                    </button>
-                  </>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">Delivery Note</label>
+                    <textarea
+                      value={deliveryNote}
+                      onChange={(e) => setDeliveryNote(e.target.value)}
+                      className="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+                      placeholder="Add an optional note for the delivery"
+                    />
+                  </div>
                 )}
+
+                {meal.status === "Pending" && (
+                  <button
+                    onClick={() => handleMarkAsDelivered(meal._id)}
+                    className="w-full py-2 bg-green-500 text-white text-center font-semibold rounded-md hover:bg-green-600"
+                  >
+                    Mark as Delivered
+                  </button>
+                )}
+
+                <button
+                  onClick={() => handleDelete(meal._id)}
+                  className="w-full py-2 bg-red-500 text-white text-center font-semibold rounded-md hover:bg-red-600 mt-2"
+                >
+                  Delete Delivery
+                </button>
 
                 {meal.status === "Delivered" && meal.deliveryNote && (
                   <p className="mt-2 text-sm text-gray-500">

@@ -5,13 +5,16 @@ const Patient = require("../models/Patient");
 const router = express.Router();
 
 router.get("/get", async (req, res) => {
+  const { patientId } = req.query;
   try {
-    const foodCharts = await FoodChart.find();
+    const query = patientId ? { patientId } : {};
+    const foodCharts = await FoodChart.find(query);
     res.json(foodCharts);
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
+
 
 router.post("/create", async (req, res) => {
   const { mealType, ingredients, instructions, patientId } = req.body;
@@ -35,7 +38,7 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.put("/api/foodcharts/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const foodChart = await FoodChart.findById(req.params.id);
     if (!foodChart) {
@@ -52,14 +55,14 @@ router.put("/api/foodcharts/:id", async (req, res) => {
   }
 });
 
-router.delete("/api/foodcharts/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const foodChart = await FoodChart.findById(req.params.id);
     if (!foodChart) {
       return res.status(404).json({ message: "Food Chart not Found" });
     }
 
-    await foodChart.remove();
+    await foodChart.deleteOne();
     res.json({ message: "Food Chart Deleted" });
   } catch (err) {
     res.status(400).json({ message: err.message });

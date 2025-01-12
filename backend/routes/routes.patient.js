@@ -1,6 +1,5 @@
 const express = require('express');
 const Patient = require('../models/Patient');
-
 const router = express.Router();
 
 router.post('/create', async (req, res) => {
@@ -56,11 +55,13 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Patient not found' });
     }
 
-    await patient.remove();
+    await Patient.deleteOne({ _id: req.params.id });
     res.json({ message: 'Patient deleted' });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
 });
+
+
 
 module.exports = router;
