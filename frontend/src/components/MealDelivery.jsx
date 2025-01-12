@@ -85,7 +85,7 @@ const MealDelivery = () => {
     try {
       await api.delete(`http://localhost:5000/api/mealdeliveries/${mealId}`);
       alert('Meal delivery deleted successfully!');
-      setMealDeliveries(mealDeliveries.filter((meal) => meal._id !== mealId));
+      setMealDeliveries(mealDeliveries.filter((meal) => meal._id !== mealId ));
     } catch (err) {
       console.error('Error deleting meal delivery', err);
     }
