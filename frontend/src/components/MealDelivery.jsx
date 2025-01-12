@@ -92,16 +92,16 @@ const MealDelivery = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
-      <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-800">Meal Delivery Tracking</h1>
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <h1 className="text-4xl font-extrabold mb-8 text-center text-gray-900">Meal Delivery Tracking</h1>
 
-      <form onSubmit={handleSubmit} className="mb-8">
+      <form onSubmit={handleSubmit} className="mb-8 space-y-6">
         <div className="mb-4">
           <label className="block text-sm font-semibold text-gray-700">Pantry Staff</label>
           <select
             value={pantryStaffId}
             onChange={(e) => setPantryStaffId(e.target.value)}
-            className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-blue-500"
             required
           >
             <option value="">Select Pantry Staff</option>
@@ -117,7 +117,7 @@ const MealDelivery = () => {
           <select
             value={patientId}
             onChange={(e) => setPatientId(e.target.value)}
-            className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-blue-500"
             required
           >
             <option value="">Select Patient</option>
@@ -130,17 +130,17 @@ const MealDelivery = () => {
         </div>
         <div className="mb-4">
           <label className="block text-sm font-semibold text-gray-700">Status</label>
-          <input
+          <input 
             type="text"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
+            className="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring focus:border-blue-500"
             required
           />
         </div>
         <button
           type="submit"
-          className="w-full py-2 bg-blue-600 text-white text-center font-semibold rounded-md hover:bg-blue-700"
+          className="w-full py-2 bg-blue-600 text-white text-center font-semibold rounded-lg hover:bg-blue-700"
         >
           Create Meal Delivery
         </button>
@@ -151,7 +151,7 @@ const MealDelivery = () => {
           mealDeliveries
             .filter((meal) => !deliveryStatus || meal.status === deliveryStatus)
             .map((meal) => (
-              <div key={meal._id} className="mb-6 p-4 border border-gray-200 rounded-lg bg-gray-50">
+              <div key={meal._id} className="mb-6 p-4 border border-gray-300 rounded-lg bg-gray-100">
                 <h3 className="font-bold text-lg text-gray-800">
                   Meal for {meal.patientId ? meal.patientId.name : "Unknown Patient"}
                 </h3>
@@ -164,7 +164,7 @@ const MealDelivery = () => {
                     <textarea
                       value={deliveryNote}
                       onChange={(e) => setDeliveryNote(e.target.value)}
-                      className="w-full mt-1 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+                      className="w-full mt-1 p-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:border-blue-500"
                       placeholder="Add an optional note for the delivery"
                     />
                   </div>
@@ -173,7 +173,7 @@ const MealDelivery = () => {
                 {meal.status === "Pending" && (
                   <button
                     onClick={() => handleMarkAsDelivered(meal._id)}
-                    className="w-full py-2 bg-green-500 text-white text-center font-semibold rounded-md hover:bg-green-600"
+                    className="w-full py-2 bg-green-500 text-white text-center font-semibold rounded-lg hover:bg-green-600"
                   >
                     Mark as Delivered
                   </button>
@@ -181,7 +181,7 @@ const MealDelivery = () => {
 
                 <button
                   onClick={() => handleDelete(meal._id)}
-                  className="w-full py-2 bg-red-500 text-white text-center font-semibold rounded-md hover:bg-red-600 mt-2"
+                  className="w-full py-2 bg-red-500 text-white text-center font-semibold rounded-lg hover:bg-red-600 mt-2"
                 >
                   Delete Delivery
                 </button>

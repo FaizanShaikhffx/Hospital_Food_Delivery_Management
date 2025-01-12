@@ -34,56 +34,75 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-4 text-center">{isRegistering ? 'Register' : 'Login'}</h2>
-        <form onSubmit={isRegistering ? handleRegisterSubmit : handleLoginSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Username</label>
-            <input
-              type="text"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
+    <div className="flex min-h-screen">
+      <div className="w-1/2 flex items-center justify-center px-20">
+        <div className="w-full max-w-md space-y-8">
+          <div>
+            <h2 className="text-4xl font-bold mb-2">WELCOME BACK</h2>
+            <p className="text-gray-600 mb-8">Welcome back! Please enter your details.</p>
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          {isRegistering && (
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Role</label>
-              <input
-                type="text"
-                className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                required
-              />
+          <form onSubmit={isRegistering ? handleRegisterSubmit : handleLoginSubmit}>
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-900">Username</label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter username"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-900">Password</label>
+                <input
+                  type="password"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  required
+                />
+              </div>
+              {isRegistering && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-900">Role</label>
+                  <input
+                    type="text"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    placeholder="Enter role (admin/user)"
+                    required
+                  />
+                </div>
+              )}
+              {error && <div className="text-red-500 text-sm">{error}</div>}
+              <button
+                type="submit"
+                className="w-full py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+              >
+                {isRegistering ? 'Register' : 'Login'}
+              </button>
             </div>
-          )}
-          {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+          </form>
           <button
-            type="submit"
-            className="w-full py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+            onClick={() => setIsRegistering(!isRegistering)}
+            className="w-full py-3 bg-gray-100 text-gray-900 rounded-lg hover:bg-gray-200 transition-colors mt-4"
           >
-            {isRegistering ? 'Register' : 'Login'}
+            {isRegistering ? 'Switch to Login' : 'Switch to Register'}
           </button>
-        </form>
-        <button
-          onClick={() => setIsRegistering(!isRegistering)}
-          className="w-full mt-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
-        >
-          {isRegistering ? 'Switch to Login' : 'Switch to Register'}
-        </button>
+        </div>
+      </div>
+      <div className="w-1/2 bg-gray-50">
+        <div className="h-full w-full relative">
+          <img
+            src="/login_page.jpg"
+            alt="Basketball player illustration"
+            className="w-full h-full object-cover"
+          />
+        </div>
       </div>
     </div>
   );

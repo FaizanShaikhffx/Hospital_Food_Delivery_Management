@@ -36,10 +36,9 @@ const FoodChart = () => {
         console.error('Error fetching food charts');
       }
     };
-  
+
     fetchFoodCharts(selectedPatientId);
   }, [selectedPatientId]);
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -90,17 +89,43 @@ const FoodChart = () => {
       console.error('Error deleting food chart', err);
     }
   };
-  
 
   return (
-    <div className="min-h-screen bg-gradient-to-br  to-teal-50 p-6 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br to-teal-50 p-6 flex flex-col">
       <div className="flex items-center mb-6">
-        <img src="/FoodChart.jpg" alt="Placeholder" className=" w-5/12 rounded-2xl  transition-transform duration-300 hover:scale-105" />
+        <img src="/FoodChart.jpg" alt="Placeholder" className="w-5/12 rounded-2xl transition-transform duration-300 hover:scale-105" />
+        <div className="sm:text-center p-24 justify-center lg:text-left">
+          <h1 className="text-4xl pt-8 text-ce tracking-tight font-extrabold text-gray-600 sm:text-3xl md:text-5xl">
+            <span className="block xl:inline">
+              Personalized
+            </span>{" "}
+            <br />
+            <span className="block text-yellow-500 xl:inline">
+              Food Charts
+            </span>
+          </h1>
+          <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+            Create and manage tailored diet plans for patients,
+            ensuring they receive the right nutrition and care.
+          </p>
+          <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+            <div className="rounded-md shadow">
+              <a
+                href="#food-chart-form"
+                className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-yellow-500 hover:bg-yellow-600 md:py-4 md:text-lg md:px-10"
+              >
+                Get started
+              </a>
+            </div>
+            <div className="mt-3 sm:mt-0 sm:ml-3">
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="p-6 flex items-center justify-center">
+      <div id="food-chart-form" className="p-6 flex items-center justify-center">
         <div className="bg-white bg-opacity-80 backdrop-blur-md p-8 rounded-2xl w-full shadow-xl transition-all duration-300 hover:shadow-2xl">
-          <h1 className="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">Food Chart Management</h1>
+          <h1 className="text-4xl font-extrabold mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-yellow-400">Food Chart Management</h1>
           {patients.length > 0 ? (
             <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
               <div className="space-y-4">
@@ -153,7 +178,7 @@ const FoodChart = () => {
               </div>
               <button
                 type="submit"
-                className="w-full py-3 bg-gradient-to-r from-blue-500 to-teal-400 text-white rounded-lg hover:from-blue-600 hover:to-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-105"
+                className="w-full py-3 bg-gradient-to-r from-yellow-500 to-yellow-400 text-white rounded-lg hover:from-yellow-600 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-all duration-200 transform hover:scale-105"
               >
                 {selectedFoodChart ? 'Update Food Chart' : 'Create Food Chart'}
               </button>

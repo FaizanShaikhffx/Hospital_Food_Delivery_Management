@@ -3,8 +3,8 @@ import React from "react";
 const FeaturePage = () => {
   return (
     <div className=" bg-gray-100 flex flex-col items-center justify-center ">
-      <div className="bg-white shadow-md rounded-lg p-10 w-full">
-        <h1 className="text-3xl font-bold text-center mb-4">
+      <div className="bg-white  shadow-md rounded-lg p-10 w-full">
+        <h1 className="text-5xl pt-12 font-bold text-center mb-4">
           Common <span className="text-[#40b1cc]">Features</span>
         </h1>
 
