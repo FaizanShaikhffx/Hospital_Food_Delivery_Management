@@ -13,7 +13,7 @@ const FoodChart = () => {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await api.get('http://localhost:5000/api/patients/get');
+        const response = await api.get('https://hospital-food-delivery-management-backend-2lka.onrender.com/api/patients/get');
         setPatients(response.data);
       } catch (err) {
         console.error('Error fetching patients');
@@ -30,7 +30,7 @@ const FoodChart = () => {
         return;
       }
       try {
-        const response = await api.get(`http://localhost:5000/api/foodcharts/get?patientId=${patientId}`);
+        const response = await api.get(`https://hospital-food-delivery-management-backend-2lka.onrender.com/api/foodcharts/get?patientId=${patientId}`);
         setFoodCharts(response.data);
       } catch (err) {
         console.error('Error fetching food charts');
@@ -49,14 +49,14 @@ const FoodChart = () => {
     }
     try {
       if (selectedFoodChart) {
-        await api.put(`http://localhost:5000/api/foodcharts/${selectedFoodChart._id}`, {
+        await api.put(`https://hospital-food-delivery-management-backend-2lka.onrender.com/api/foodcharts/${selectedFoodChart._id}`, {
           mealType,
           ingredients,
           instructions,
         });
         alert('Food chart updated successfully!');
       } else {
-        await api.post('http://localhost:5000/api/foodcharts/create', {
+        await api.post('https://hospital-food-delivery-management-backend-2lka.onrender.com/api/foodcharts/create', {
           mealType,
           ingredients,
           instructions,
@@ -83,7 +83,7 @@ const FoodChart = () => {
 
   const handleDelete = async (foodChartId) => {
     try {
-      await api.delete(`http://localhost:5000/api/foodcharts/${foodChartId}`);
+      await api.delete(`https://hospital-food-delivery-management-backend-2lka.onrender.com/api/foodcharts/${foodChartId}`);
       alert('Food chart deleted successfully!');
       setFoodCharts(foodCharts.filter(chart => chart._id !== foodChartId));
     } catch (err) {

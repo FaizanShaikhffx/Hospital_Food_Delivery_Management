@@ -15,7 +15,7 @@ const Dashboard = () => {
           throw new Error('No token found');
         }
 
-        const userResponse = await api.get('http://localhost:5000/api/auth/user', {
+        const userResponse = await api.get('https://hospital-food-delivery-management-backend-2lka.onrender.com/api/auth/user', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -23,7 +23,7 @@ const Dashboard = () => {
 
         setUserRole(userResponse.data.role);
 
-        const patientsResponse = await api.get('http://localhost:5000/api/patients/get');
+        const patientsResponse = await api.get('https://hospital-food-delivery-management-backend-2lka.onrender.com/api/patients/get');
         setHasPatients(patientsResponse.data.length > 0);
       } catch (error) {
         console.error('Error fetching data:', error.message);

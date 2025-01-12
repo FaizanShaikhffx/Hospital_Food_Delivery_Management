@@ -14,7 +14,7 @@ const MealDelivery = () => {
   useEffect(() => {
     const fetchMealDeliveries = async () => {
       try {
-        const response = await api.get("http://localhost:5000/api/mealdeliveries/");
+        const response = await api.get("https://hospital-food-delivery-management-backend-2lka.onrender.com/api/mealdeliveries/");
         setMealDeliveries(response.data);
       } catch (err) {
         console.error("Error fetching meal deliveries");
@@ -23,10 +23,10 @@ const MealDelivery = () => {
 
     const fetchData = async () => {
       try {
-        const staffResponse = await api.get('http://localhost:5000/api/pantrystaff/get');
+        const staffResponse = await api.get('https://hospital-food-delivery-management-backend-2lka.onrender.com/api/pantrystaff/get');
         setPantryStaffList(staffResponse.data);
 
-        const patientsResponse = await api.get('http://localhost:5000/api/patients/get');
+        const patientsResponse = await api.get('https://hospital-food-delivery-management-backend-2lka.onrender.com/api/patients/get');
         setPatientsList(patientsResponse.data);
       } catch (err) {
         console.error('Error fetching data', err);
@@ -39,7 +39,7 @@ const MealDelivery = () => {
 
   const handleMarkAsDelivered = async (mealId) => {
     try {
-      const response = await api.post(`http://localhost:5000/api/mealdeliveries/${mealId}/complete`, {
+      const response = await api.post(`https://hospital-food-delivery-management-backend-2lka.onrender.com/api/mealdeliveries/${mealId}/complete`, {
         deliveryNote,
       });
       if (response.status === 200) {
@@ -61,7 +61,7 @@ const MealDelivery = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('http://localhost:5000/api/mealdeliveries/create', {
+      const response = await api.post('https://hospital-food-delivery-management-backend-2lka.onrender.com/api/mealdeliveries/create', {
         pantryStaffId,
         patientId,
         status,
@@ -69,7 +69,7 @@ const MealDelivery = () => {
       alert('Meal delivery created successfully!');
       
       
-      const updatedDeliveries = await api.get("http://localhost:5000/api/mealdeliveries/");
+      const updatedDeliveries = await api.get("https://hospital-food-delivery-management-backend-2lka.onrender.com/api/mealdeliveries/");
       setMealDeliveries(updatedDeliveries.data);
   
       setPantryStaffId('');
@@ -83,7 +83,7 @@ const MealDelivery = () => {
 
   const handleDelete = async (mealId) => {
     try {
-      await api.delete(`http://localhost:5000/api/mealdeliveries/${mealId}`);
+      await api.delete(`https://hospital-food-delivery-management-backend-2lka.onrender.com/api/mealdeliveries/${mealId}`);
       alert('Meal delivery deleted successfully!');
       setMealDeliveries(mealDeliveries.filter((meal) => meal._id !== mealId ));
     } catch (err) {

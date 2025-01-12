@@ -24,7 +24,7 @@ const Patient = () => {
 
   const fetchPatients = async () => {
     try {
-      const response = await api.get('http://localhost:5000/api/patients/get');
+      const response = await api.get('https://hospital-food-delivery-management-backend-2lka.onrender.com/api/patients/get');
       setPatients(response.data);
     } catch (err) {
       console.error('Error fetching patients:', err);
@@ -40,10 +40,10 @@ const Patient = () => {
     e.preventDefault();
     try {
       if (selectedPatient) {
-        await api.put(`http://localhost:5000/api/patients/${selectedPatient._id}`, formData);
+        await api.put(`https://hospital-food-delivery-management-backend-2lka.onrender.com/api/patients/${selectedPatient._id}`, formData);
         alert('Patient updated successfully!');
       } else {
-        await api.post('http://localhost:5000/api/patients/create', formData);
+        await api.post('https://hospital-food-delivery-management-backend-2lka.onrender.com/api/patients/create', formData);
         alert('Patient created successfully!');
       }
       setFormData({
@@ -73,7 +73,7 @@ const Patient = () => {
 
   const handleDelete = async (patientId) => {
     try {
-      await api.delete(`http://localhost:5000/api/patients/${patientId}`);
+      await api.delete(`https://hospital-food-delivery-management-backend-2lka.onrender.com/api/patients/${patientId}`);
       alert('Patient deleted successfully!');
       fetchPatients(); 
     } catch (err) {
