@@ -40,21 +40,21 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-      <h2 className="text-xl mb-4">Role: {userRole}</h2>
+    <div className="p-6 max-w-full md:max-w-2xl lg:max-w-4xl mx-auto">
+      <h1 className="text-2xl md:text-3xl font-bold mb-6">Dashboard</h1>
+      <h2 className="text-lg md:text-xl mb-4">Role: {userRole}</h2>
       <button
         onClick={logout}
         className="mb-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
       >
         Logout
       </button>
-      <div>
+      <div className='flex flex-col md:flex-row md:flex-wrap'>
         {userRole === 'admin' && (
           <>
             <button
               onClick={() => navigate('/patients')}
-              className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="mr-4 mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
               Manage Patients
             </button>
@@ -62,13 +62,13 @@ const Dashboard = () => {
               <>
                 <button
                   onClick={() => navigate('/food-charts')}
-                  className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                  className="mr-4 mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                 >
                   Manage Food Charts
                 </button>
                 <button
                   onClick={() => navigate('/meal-deliveries')}
-                  className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                  className="mr-4 mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                 >
                   Track Meal Deliveries
                 </button>
@@ -80,13 +80,13 @@ const Dashboard = () => {
           <>
             <button
               onClick={() => navigate('/food-charts')}
-              className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="mr-4 mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
               View Food Charts
             </button>
             <button
               onClick={() => navigate('/meal-deliveries')}
-              className="mr-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="mr-4 mb-2 md:mb-0 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
               View Meal Deliveries
             </button>

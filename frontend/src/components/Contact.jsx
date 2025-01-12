@@ -3,8 +3,8 @@ import React from 'react';
 const Contact = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-4xl font-bold mb-8 text-center text-[#40b1cc]">Contact Us</h1>
-      <form className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+      <h1 className="text-3xl sm:text-4xl font-bold mb-8 text-center text-[#40b1cc]">Contact Us</h1>
+      <form className="max-w-full sm:max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Name</label>
           <input

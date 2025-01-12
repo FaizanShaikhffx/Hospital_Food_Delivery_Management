@@ -68,7 +68,6 @@ const MealDelivery = () => {
       });
       alert('Meal delivery created successfully!');
       
-      
       const updatedDeliveries = await api.get("https://hospital-food-delivery-management-backend-2lka.onrender.com/api/mealdeliveries/");
       setMealDeliveries(updatedDeliveries.data);
   

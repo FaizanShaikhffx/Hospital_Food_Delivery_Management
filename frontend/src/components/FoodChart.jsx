@@ -92,9 +92,9 @@ const FoodChart = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br to-teal-50 p-6 flex flex-col">
-      <div className="flex items-center mb-6">
-        <img src="/FoodChart.jpg" alt="Placeholder" className="w-5/12 rounded-2xl transition-transform duration-300 hover:scale-105" />
-        <div className="sm:text-center p-24 justify-center lg:text-left">
+      <div className="flex flex-col lg:flex-row items-center mb-6">
+        <img src="/FoodChart.jpg" alt="Placeholder" className="w-full lg:w-5/12 rounded-2xl transition-transform duration-300 hover:scale-105" />
+        <div className="sm:text-center p-6 lg:p-24 justify-center lg:text-left">
           <h1 className="text-4xl pt-8 text-ce tracking-tight font-extrabold text-gray-600 sm:text-3xl md:text-5xl">
             <span className="block xl:inline">
               Personalized

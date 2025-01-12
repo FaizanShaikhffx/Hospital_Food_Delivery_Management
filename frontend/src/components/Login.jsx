@@ -34,8 +34,8 @@ const Auth = () => {
   };
 
   return (
-    <div className="flex min-h-screen">
-      <div className="w-1/2 flex items-center justify-center px-20">
+    <div className="flex flex-col lg:flex-row min-h-screen">
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 lg:px-20">
         <div className="w-full max-w-md space-y-8">
           <div>
             <h2 className="text-4xl font-bold mb-2">WELCOME BACK</h2>
@@ -95,8 +95,8 @@ const Auth = () => {
           </button>
         </div>
       </div>
-      <div className="w-1/2 bg-gray-50">
-        <div className="h-full w-full relative">
+      <div className="w-full lg:w-1/2 bg-gray-50">
+        <div className="h-64 lg:h-full w-full relative">
           <img
             src="/login_page.jpg"
             alt="Basketball player illustration"

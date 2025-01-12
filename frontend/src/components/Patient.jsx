@@ -75,12 +75,12 @@ const Patient = () => {
     try {
       await api.delete(`https://hospital-food-delivery-management-backend-2lka.onrender.com/api/patients/${patientId}`);
       alert('Patient deleted successfully!');
-      fetchPatients(); 
+      fetchPatients();
     } catch (err) {
       console.error('Error deleting patient:', err);
     }
   };
-  
+
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
       <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">Patient Management</h1>
@@ -111,7 +111,7 @@ const Patient = () => {
       {activeTab === 'create' && (
         <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
-            <div className="w-full md:w-1/2 bg-blue-600">
+            <div className="w-full md:w-1/2 bg-blue-600 flex-shrink-0">
               <img
                 src="/Patient.jpg"
                 alt="Patient Care"
@@ -183,16 +183,16 @@ const Patient = () => {
                     <div><span className="font-semibold text-gray-700">Contact Info:</span> {patient.contactInfo}</div>
                     <div><span className="font-semibold text-gray-700">Emergency Contact:</span> {patient.emergencyContact}</div>
                   </div>
-                  <div className="flex space-x-4 mt-4">
+                  <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
                     <button
                       onClick={() => handleEdit(patient)}
-                      className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+                      className="sm:w-1/2 bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(patient._id)}
-                      className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+                      className="sm:w-1/2 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
                     >
                       Delete
                     </button>
